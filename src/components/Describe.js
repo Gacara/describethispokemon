@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import firebase from "../utils/firebaseConfig";
 import { UidContext } from "./UidContext";
-import { set, uniqBy } from "lodash";
 import { Card, CardMedia, CardContent, Typography, Button } from '@material-ui/core';
 import data from "./data.json";
 
