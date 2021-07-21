@@ -26,11 +26,14 @@ const Read = () => {
   return (
     <div className="read">
       Les descriptions de {firebase.auth().currentUser.displayName} :
-      <ul  style={{maxHeight: "75vh", overflow: "auto"}}>
+      <ul  style={{maxHeight: "75vh", overflow: "auto", paddingLeft: "10px"}}>
       
         {pokemonsList.length > 0 &&
           pokemonsList.map((item, index) => (
-            <UpdateDelete item={item} key={index} />
+            <div key={index}>
+              <UpdateDelete item={item} key={index} />
+              <div style={{paddingTop: "24px"}} />
+            </div>
           ))}
       </ul>
     </div>

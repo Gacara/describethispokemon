@@ -15,8 +15,8 @@ body {
       height: fit-content;
       align-items: baseline;
     }
-  .content { grid-area: 2 / 3 / 4 / 8; }
-  .viewer { grid-area: 2 / 9 / 4 / 12; }
+  .content { grid-area: 2 / 3 / 4 / 7; }
+  .viewer { grid-area: 2 / 8 / 4 / 11; }
 
   .pm-0 {
       padding: 0;

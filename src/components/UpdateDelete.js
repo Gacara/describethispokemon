@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import firebase from "../utils/firebaseConfig";
 import { UidContext } from "./UidContext";
+import { Card, CardMedia, CardContent, Typography, Button } from '@material-ui/core';
 
 const UpdateDelete = ({ item }) => {
   console.log(item[0])
@@ -34,14 +35,15 @@ const UpdateDelete = ({ item }) => {
   };
 
   return (
-    <li>
+    <Card>
+    <CardContent>
+    <li style={{listStyleType: "none"}}>
       {update === false && (
-        <div className="item-container">
-
-          <h4>{Object.keys(item)[0]}</h4>
+            <div>
+            <h4>{Object.keys(item)[0]}</h4>
           {
-            Object.entries(Object.values(item)[0]).map((value) => 
-              <p>{`${value[0]} : ${value[1]} `}</p>
+            Object.entries(Object.values(item)[0]).map((value, index) => 
+              <p key={index}>{`${value[0]} : ${value[1]} `}</p>
             )
           }
           {
@@ -49,10 +51,10 @@ const UpdateDelete = ({ item }) => {
               {
                 //<button onClick={() => setUpdate(!update)}>Update</button>
               }
-              <button onClick={deleteItem}>Delete</button>
+              <Button variant="contained" color="secondary" onClick={deleteItem}>Delete</Button>
             </div>
         }
-        </div>
+            </div>
       )}
 
       {update && (
@@ -70,6 +72,9 @@ const UpdateDelete = ({ item }) => {
         </div>
       )}
     </li>
+    
+    </CardContent>
+    </Card>
   );
 };
 
