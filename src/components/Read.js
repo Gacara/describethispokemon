@@ -4,28 +4,32 @@ import UpdateDelete from "./UpdateDelete";
 import { UidContext } from "./UidContext";
 
 const Read = () => {
-  const [quoteList, setQuoteList] = useState([]);
   const uid = useContext(UidContext);
+  const [pokemonsList, setPokemonsList] = useState([]);
 
   useEffect(() => {
-    const quotesDB = firebase.database().ref(`descriptionsDB/${uid}`);
+    const descriptionsDB = firebase.database().ref(`descriptionsDB`);
+    console.log(descriptionsDB);
 
-    quotesDB.on("value", (snapshot) => {
-      console.log(snapshot.val());
+    descriptionsDB.on("value", (snapshot) => {
+      
       let previousList = snapshot.val();
-      let list = [];
-      for (let id in previousList) {
-        list.push({ id, ...previousList[id] });
+      
+      if (previousList[uid]) {
+        const newPokemonsList = Object.entries(previousList[uid]).map((key) => ({[key[0]]: key[1]}))
+        setPokemonsList(newPokemonsList);
       }
-      setQuoteList(list);
+
     });
-  }, []);
+  }, [uid]);
 
   return (
     <div className="read">
-      <ul>
-        {quoteList &&
-          quoteList.map((item, index) => (
+      Les descriptions de {firebase.auth().currentUser.displayName} :
+      <ul  style={{maxHeight: "75vh", overflow: "auto"}}>
+      
+        {pokemonsList.length > 0 &&
+          pokemonsList.map((item, index) => (
             <UpdateDelete item={item} key={index} />
           ))}
       </ul>

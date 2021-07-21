@@ -12,8 +12,6 @@ const App = () => {
     signInFlow: "popup",
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
     ],
     callbacks: {
@@ -24,7 +22,6 @@ const App = () => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       setIsSignedIn(!!user);
-      console.log(user);
       setUid(user.uid);
     });
   }, []);
@@ -36,7 +33,7 @@ const App = () => {
           <Main />
         ) : (
           <div className="login-page">
-            <h1>React Crud</h1>
+            <h1 style={{padding: "0 0 0 24px"}}>Describe THIS</h1>
             <StyledFirebaseAuth
               uiConfig={uiConfig}
               firebaseAuth={firebase.auth()}

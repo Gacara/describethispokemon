@@ -7,8 +7,7 @@ const Main = () => {
   return (
   <div className="container">
     <div className="header">
-        <h1 style={{paddingRight: "20px"}} className="pm-0">React Crud</h1>
-        <h4 style={{paddingRight: "20px"}} className="pm-0">Bonjour {firebase.auth().currentUser.displayName}</h4>
+        <h4 style={{paddingRight: "20px"}} className="pm-0">| {firebase.auth().currentUser.displayName} |</h4>
         <div onClick={() => firebase.auth().signOut()}>Se déconnecter</div>
     </div>
     <div className="content">

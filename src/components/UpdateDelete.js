@@ -3,27 +3,16 @@ import firebase from "../utils/firebaseConfig";
 import { UidContext } from "./UidContext";
 
 const UpdateDelete = ({ item }) => {
+  console.log(item[0])
   const [update, setUpdate] = useState(false);
-  const [authorUpdate, setAuthorUpdate] = useState(null);
-  const [textUpdate, setTextUpdate] = useState(null);
-
   const uid = useContext(UidContext);
-
-  const authorCheck = () => {
-    if (item.uid === uid) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  authorCheck();
 
   const updateItem = () => {
     // pointer id de l'élement à update
-    let quote = firebase.database().ref("quotesDB").child(item.id);
+    let quote = firebase.database().ref(`descriptionsDB/${uid}`).child(item.id);
 
     // make sure there's no undifined
-    if (authorUpdate !== null) {
+   /* if (authorUpdate !== null) {
       quote.update({
         author: authorUpdate,
       });
@@ -32,45 +21,50 @@ const UpdateDelete = ({ item }) => {
       quote.update({
         text: textUpdate,
       });
-    }
+    }*/
     // repasse update sur false
     setUpdate(false);
   };
 
   const deleteItem = () => {
     // pointer id de l'élement à delete
-    let quote = firebase.database().ref("quotesDB").child(item.id);
+    let quote = firebase.database().ref(`descriptionsDB/${uid}/${Object.keys(item)[0]}`);
 
     quote.remove();
-    authorCheck();
   };
 
   return (
     <li>
       {update === false && (
         <div className="item-container">
-          <p>"{item.text}"</p>
-          <h6>{item.author}</h6>
 
-          {authorCheck() && (
+          <h4>{Object.keys(item)[0]}</h4>
+          {
+            Object.entries(Object.values(item)[0]).map((value) => 
+              <p>{`${value[0]} : ${value[1]} `}</p>
+            )
+          }
+          {
             <div className="buttons-container">
-              <button onClick={() => setUpdate(!update)}>Update</button>
+              {
+                //<button onClick={() => setUpdate(!update)}>Update</button>
+              }
               <button onClick={deleteItem}>Delete</button>
             </div>
-          )}
+        }
         </div>
       )}
 
       {update && (
         <div className="item-container-update">
           <textarea
-            defaultValue={item.text}
-            onChange={(e) => setTextUpdate(e.target.value)}
+            defaultValue={item.name}
+            onChange={(e) => {}}
           />
           <input
             type="text"
-            defaultValue={item.author}
-            onChange={(e) => setAuthorUpdate(e.target.value)}
+            defaultValue={""}
+            onChange={(e) => {}}
           />
           <button onClick={updateItem}>Validate update</button>
         </div>
